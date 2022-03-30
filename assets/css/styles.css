@@ -1,0 +1,7 @@
+.question,.answerlist {
+  margin-bottom: 150;
+}
+.top {
+  display: flex;
+  justify-content: space-between;
+}

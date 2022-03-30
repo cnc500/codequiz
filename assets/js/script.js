@@ -1,10 +1,19 @@
-var startcontainer = document.querySelector(".startcontainer");
+var startcontainer = document.querySelector(".startContainer");
 var startbutton = document.querySelector(".startbtn");
-var questioncontainer = document.querySelector(".questioncontainer");
+var questionContainer = document.querySelector(".questionContainer");
 var timer = document.querySelector(".timer");
 var score = document.querySelector(".score");
 var question = document.querySelector(".question");
-var answerlist = document.querySelector(".answerList");
+var answerList = document.querySelector(".answerList");
+var highScores = document.querySelector(".highScores");
+var answer1 = document.querySelector(".answer1");
+var answer2 = document.querySelector(".answer2");
+var answer3 = document.querySelector(".answer3");
+var answer4 = document.querySelector(".answer4");
+var questionIndex = 0;
+
+
+
 var questions = [
   {
     question:"The acronym JSON stands for",
@@ -15,23 +24,71 @@ var questions = [
     question:"JSON is commonly used for",
     choices:["sending data between computers.","storing JS objects as JSON strings in local storage.","transmitting data in web applications.","All of the above"],
     answers:"All of the above"
+  },
+  {
+    question:"The acronym API stands for",
+    choices:["Advanced Programming Initiative","Application Programming Interface","Applied Performance Interoperability","Adverse Predictable Interference"],
+    answers:"Application Programming Interface"
+  },
+  {
+    question:"The acronym DOM stands for",
+    choices:["Document Object Model","Domain Operability Management","Definitive Operating Model","Domain Operating Model"],
+    answers:"Document Object Model"
+  },
+  {
+    question:"Which statement is not true?",
+    choices:["A method is a prebuilt function.","An object is a collection of properties.","A declared function independently executes a particular task.","Georgia Tech is a premiere, technical, educational institution!"],
+    answers:"A declared function independently executes a particular task."
   }
 ]
-function displayQuestion (){
-  for (var i=0;i<questions.length;i++){
+
+startbutton.addEventListener("click", startQuiz); 
+
+timer.style.display = 'none';
+score.style.display = 'none';
+question.style.display = 'none';
+highScores.style.display = 'none';
+
+function startQuiz (){
+  console.log("startQuiz");
+  question.style.display = 'block';
+  startcontainer.style.display = 'none';
+  timer.style.display = 'block';
+  highScores.style.display = 'block';
+  displayQuestion(0);
+  //start timer
+
+}
+
+function displayQuestion (i){
+  //for (var i=0;i<questions.length;i++){
     console.log(questions[i].question);
     console.log(questions[i].choices);
-    question.textContent=questions[i].question
-  }
+    question.textContent=questions[i].question;
+    answer1.textContent=questions[i].choices[0];
+    answer2.textContent=questions[i].choices[1];
+    answer3.textContent=questions[i].choices[2];
+    answer4.textContent=questions[i].choices[3];
+ // } 
 }
-displayQuestion();
+//add event listenerfor answerButton to call functio
+// 
 
-function checkAnswer(){
-
+/*function checkAnswer(){
+  if true {}
 }
 function nextQuestion(){
-  
+  questionIndex++;
+  if questionIndex<5 {
+  displayQuestion(questionIndex);
+  } else
+  allDone ();
+  //stop timer in allDone
 }
+var timeEl = document.querySelector(".time");
+
+// Selects element by id
+var mainEl = document.getElementById("main");
 
 
 function setTime() {
@@ -64,3 +121,4 @@ choice4 = ["Document Object Model","Domain Operability Management","Definitive O
 answer4 = "Document Object Model";
 question5 = "Which statement is not true?"
 choice5 = ["A method is a prebuilt function.","An object is a collection of properties.","A declared function independently executes a particular task.","Georgia Tech is a premiere, technical, educational institution!"];
+*/

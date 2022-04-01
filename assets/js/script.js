@@ -10,8 +10,8 @@ var answer1 = document.querySelector(".answer1");
 var answer2 = document.querySelector(".answer2");
 var answer3 = document.querySelector(".answer3");
 var answer4 = document.querySelector(".answer4");
-var answerButton = document.querySelector(".answerButton");
 var timer = document.querySelector(".timer");
+var judgment = document.querySelector(".judgment");
 var questionIndex = 0;
 
 
@@ -20,7 +20,7 @@ var questionIndex = 0;
 var questions = [
   {
     question:"The acronym JSON stands for",
-    choices:["JavaScript Open Nomenclature","JavaSript Object Nomenclature","JavaScript Open Network","JavaScript Object Notation"],
+    choices:["JavaScript Open Nomenclature","Java5Sript Object Nomenclature","JavaScript Open Network","JavaScript Object Notation"],
     answers:"JavaScript Object Notation"
   },
   {
@@ -87,14 +87,21 @@ function displayQuestion (i){
 }
 //add event listenerfor answerButton to call functio
 // 
-answerButton.addEventListener("click",nextQuestion);
+answer1.addEventListener("click",nextQuestion);
+answer2.addEventListener("click",nextQuestion);
+answer3.addEventListener("click",nextQuestion);
+answer4.addEventListener("click",nextQuestion);
 answer1.addEventListener("click",checkAnswer);
 answer2.addEventListener("click",checkAnswer);
 answer3.addEventListener("click",checkAnswer);
 answer4.addEventListener("click",checkAnswer);
 
-var key = [questions.answers[0],questions.answers[1]];
-console.log(questions.answers);
+var key = [questions[0].answers,
+          questions[1].answers,
+          questions[2].answers,
+          questions[3].answers,
+          questions[4].answers];
+console.log(key);
 
 function checkAnswer(event){
     event.target;
@@ -102,11 +109,12 @@ function checkAnswer(event){
     console.log(event);
     console.log(event.target)
     console.log(event.target.textContent)
-    if (questions.answers.includes(ans)) {
-      textContent="Right!";
+    if (key.includes(ans)) {
+      console.log(key.includes(ans));
+      judgment.textContent="Right!";
     }
       else {
-      textContent="Wrong!";
+      judgment.textContent="Wrong!";
       secondsLeft=secondsLeft-10;
       }
 }   
@@ -116,16 +124,19 @@ function checkAnswer(event){
 
 function nextQuestion(){
   questionIndex++;
-  if (questionIndex<5) {}
+  if (questionIndex<5) {
+    displayQuestion(questionIndex)
+  } else {
   allDone ();
   //stop timer in allDone
+  }
 }
-
+secondsLeft=61;
 
 function setTime() {
   // Sets interval in variable
   var timerInterval = setInterval(function() {
-    secondsLeft=60;
+    
     secondsLeft--;
     timer.textContent = "Timer:" + secondsLeft;
 
@@ -136,4 +147,8 @@ function setTime() {
       allDone();
     }
   }, 1000);
+}
+
+function allDone() {
+
 }

@@ -6,10 +6,10 @@ var score = document.querySelector(".score");
 var question = document.querySelector(".question");
 var answerList = document.querySelector(".answerList");
 var highScores = document.querySelector(".highScores");
-var answer1 = document.querySelector(".answer1");
-var answer2 = document.querySelector(".answer2");
-var answer3 = document.querySelector(".answer3");
-var answer4 = document.querySelector(".answer4");
+var choice1 = document.querySelector(".choice1");
+var choice2 = document.querySelector(".choice2");
+var choice3 = document.querySelector(".choice3");
+var choice4 = document.querySelector(".choice4");
 var timer = document.querySelector(".timer");
 var judgment = document.querySelector(".judgment");
 var questionIndex = 0;
@@ -51,10 +51,10 @@ timer.style.display = 'none';
 score.style.display = 'none';
 question.style.display = 'none';
 highScores.style.display = 'none';
-answer1.style.display = 'none';
-answer2.style.display = 'none';
-answer3.style.display = 'none';
-answer4.style.display = 'none';
+choice1.style.display = 'none';
+choice2.style.display = 'none';
+choice3.style.display = 'none';
+choice4.style.display = 'none';
 
 
 
@@ -75,26 +75,26 @@ function displayQuestion (i){
     console.log(questions[i].question);
     console.log(questions[i].choices);
     question.textContent=questions[i].question;
-    answer1.style.display = 'block';
-    answer2.style.display = 'block';
-    answer3.style.display = 'block';
-    answer4.style.display = 'block';
-    answer1.textContent=questions[i].choices[0];
-    answer2.textContent=questions[i].choices[1];
-    answer3.textContent=questions[i].choices[2];
-    answer4.textContent=questions[i].choices[3];
+    choice1.style.display = 'block';
+    choice2.style.display = 'block';
+    choice3.style.display = 'block';
+    choice4.style.display = 'block';
+    choice1.textContent=questions[i].choices[0];
+    choice2.textContent=questions[i].choices[1];
+    choice3.textContent=questions[i].choices[2];
+    choice4.textContent=questions[i].choices[3];
  // } 
 }
 //add event listenerfor answerButton to call functio
 // 
-answer1.addEventListener("click",nextQuestion);
-answer2.addEventListener("click",nextQuestion);
-answer3.addEventListener("click",nextQuestion);
-answer4.addEventListener("click",nextQuestion);
-answer1.addEventListener("click",checkAnswer);
-answer2.addEventListener("click",checkAnswer);
-answer3.addEventListener("click",checkAnswer);
-answer4.addEventListener("click",checkAnswer);
+choice1.addEventListener("click",nextQuestion);
+choice2.addEventListener("click",nextQuestion);
+choice3.addEventListener("click",nextQuestion);
+choice4.addEventListener("click",nextQuestion);
+choice1.addEventListener("click",checkAnswer);
+choice2.addEventListener("click",checkAnswer);
+choice3.addEventListener("click",checkAnswer);
+choice4.addEventListener("click",checkAnswer);
 
 var key = [questions[0].answers,
           questions[1].answers,
@@ -105,10 +105,8 @@ console.log(key);
 
 function checkAnswer(event){
     event.target;
-    var ans = event.target.textContent
-    console.log(event);
-    console.log(event.target)
-    console.log(event.target.textContent)
+    var ans = event.target.textContent;
+    console.log(event.target.textContent);
     if (key.includes(ans)) {
       console.log(key.includes(ans));
       judgment.textContent="Right!";

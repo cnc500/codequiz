@@ -14,6 +14,7 @@ var timer = document.querySelector(".timer");
 var judgment = document.querySelector(".judgment");
 var finished = document.querySelector(".finished");
 var questionIndex = 0;
+var actualScore = 60;
 
 
 
@@ -171,7 +172,7 @@ secondsLeft=61;
 function setTime() {
   // Sets interval in variable
   var timerInterval = setInterval(function() {
-    score = secondsLeft;
+    actualScore = secondsLeft;
     secondsLeft--;
     console.log(score);
     timer.textContent = "Timer:" + secondsLeft;
@@ -195,7 +196,7 @@ function allDone() {
   choice3.style.display = 'none';
   choice4.style.display = 'none';
   judgment.style.display = 'none';
- // score.style.display = 'block';
+  score.style.display = 'inline';
   finished.textContent = "All Done!";
-  score.textContent = "Your final score is " + score + ".";
+  score.textContent = "Your final score is " + actualScore + ".";
 } 

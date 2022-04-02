@@ -15,6 +15,8 @@ var judgment = document.querySelector(".judgment");
 var finished = document.querySelector(".finished");
 var questionIndex = 0;
 var actualScore = 60;
+var initials = document.querySelector(".initials");
+var submitInitials = document.querySelector(".submitInitials");
 
 
 
@@ -51,13 +53,14 @@ startbutton.addEventListener("click", startQuiz);
 
 timer.style.display = 'none';
 score.style.display = 'none';
-// question.style.display = 'none';
+initials.style.display = 'none';
+submitInitials.style.display = 'none';
 highScores.style.display = 'none';
 choice1.style.display = 'none';
 choice2.style.display = 'none';
 choice3.style.display = 'none';
 choice4.style.display = 'none';
-
+// finished.style.display = 'none';
 
 
 function startQuiz (){
@@ -186,7 +189,14 @@ function setTime() {
     }
   }, 1000);
 }
-console.log(secondsLeft);
+var winners = [
+  {
+    winner: "XX",
+    usersScore: 1
+  }
+
+]
+
 function allDone() {
   timer.style.display = 'none';
   question.style.display = 'none';
@@ -199,4 +209,21 @@ function allDone() {
   score.style.display = 'inline';
   finished.textContent = "All Done!";
   score.textContent = "Your final score is " + actualScore + ".";
+// Can only log a high score if score is greater than zero 
+  if (actualScore>0){
+    initials.style.display = 'inline';
+    submitInitials.style.display = "inline";
+    submitInitials.addEventListener("click",logScore);
+  } 
+//    var initials = document.querySelector(".initials");
+}
+ function logScore() {
+  score.style.display = 'none';
+  finished.style.display = 'inline';
+    var currentInitials = initials.value;
+console.log(currentInitials);
+console.log(actualScore);
+  winners.push({winner:currentInitials,usersScore:actualScore});
+   console.log(winners);
+
 } 

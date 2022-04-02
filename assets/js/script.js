@@ -50,7 +50,7 @@ startbutton.addEventListener("click", startQuiz);
 
 timer.style.display = 'none';
 score.style.display = 'none';
-question.style.display = 'none';
+// question.style.display = 'none';
 highScores.style.display = 'none';
 choice1.style.display = 'none';
 choice2.style.display = 'none';
@@ -61,7 +61,7 @@ choice4.style.display = 'none';
 
 function startQuiz (){
   console.log("startQuiz");
-  question.style.display = 'block';
+//  question.style.display = 'block';
   startcontainer.style.display = 'none';
   timer.style.display = 'block';
   highScores.style.display = 'block';
@@ -111,7 +111,7 @@ console.log(key);
     console.log(event.target.textContent);
  //   if (key.includes(ans)) {
   if (questions[questionIndex].answers === ans) {
-      console.log(key.includes(ans));
+//      console.log(key.includes(ans));
       judgment.textContent="Right!";
       judgment.style.display = 'block';
       var delayInMilliseconds = 2000; //2 second delay
@@ -129,7 +129,11 @@ console.log(key);
       }, delayInMilliseconds);
       secondsLeft=secondsLeft-10;
       }
+  if (questionIndex<4){
     nextQuestion();
+  } else {
+    questionIndex++;
+  } 
 }   
 
 
@@ -137,9 +141,12 @@ console.log(key);
 
 function nextQuestion(){
   questionIndex++;
-  if (questionIndex<5) {
+  displayQuestion(questionIndex)
+
+ /* if (questionIndex<5) {
     displayQuestion(questionIndex)
   } else {
+    var ans = event.target.textContent;
     if (key.includes(ans)) {
       console.log(key.includes(ans));
       judgment.textContent="Right!";
@@ -157,18 +164,20 @@ function nextQuestion(){
       }, delayInMilliseconds);
       allDone();
       }
-  }
+  } */
 }
 secondsLeft=61;
 
 function setTime() {
   // Sets interval in variable
   var timerInterval = setInterval(function() {
-    
+    score = secondsLeft;
     secondsLeft--;
+    console.log(score);
     timer.textContent = "Timer:" + secondsLeft;
 
     if((secondsLeft === 0)||(questionIndex>4)) {
+
       // Stops execution of action at set interval
       clearInterval(timerInterval);
       // Calls function to create and append image
@@ -176,7 +185,7 @@ function setTime() {
     }
   }, 1000);
 }
-/*
+console.log(secondsLeft);
 function allDone() {
   timer.style.display = 'none';
   question.style.display = 'none';
@@ -185,7 +194,8 @@ function allDone() {
   choice2.style.display = 'none';
   choice3.style.display = 'none';
   choice4.style.display = 'none';
+  judgment.style.display = 'none';
+ // score.style.display = 'block';
   finished.textContent = "All Done!";
-  score.textContent = "Your final score is " + secondsLeft + ".";
-}
-*/
+  score.textContent = "Your final score is " + score + ".";
+} 

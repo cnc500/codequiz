@@ -12,6 +12,7 @@ var choice3 = document.querySelector(".choice3");
 var choice4 = document.querySelector(".choice4");
 var timer = document.querySelector(".timer");
 var judgment = document.querySelector(".judgment");
+var finished = document.querySelector(".finished");
 var questionIndex = 0;
 
 
@@ -87,10 +88,10 @@ function displayQuestion (i){
 }
 //add event listenerfor answerButton to call functio
 // 
-choice1.addEventListener("click",nextQuestion);
+/*choice1.addEventListener("click",nextQuestion);
 choice2.addEventListener("click",nextQuestion);
 choice3.addEventListener("click",nextQuestion);
-choice4.addEventListener("click",nextQuestion);
+choice4.addEventListener("click",nextQuestion);*/
 choice1.addEventListener("click",checkAnswer);
 choice2.addEventListener("click",checkAnswer);
 choice3.addEventListener("click",checkAnswer);
@@ -103,18 +104,32 @@ var key = [questions[0].answers,
           questions[4].answers];
 console.log(key);
 
-function checkAnswer(event){
-    event.target;
+ function checkAnswer(event){
+    event.preventDefault();
+  //  event.target;
     var ans = event.target.textContent;
     console.log(event.target.textContent);
-    if (key.includes(ans)) {
+ //   if (key.includes(ans)) {
+  if (questions[questionIndex].answers === ans) {
       console.log(key.includes(ans));
       judgment.textContent="Right!";
-    }
+      judgment.style.display = 'block';
+      var delayInMilliseconds = 2000; //2 second delay
+      setTimeout(function() {
+        judgment.style.display = 'none';
+
+      }, delayInMilliseconds);
+      }
       else {
       judgment.textContent="Wrong!";
+      judgment.style.display = 'block';
+      var delayInMilliseconds = 2000; //2 second delay
+      setTimeout(function() {
+        judgment.style.display = 'none';
+      }, delayInMilliseconds);
       secondsLeft=secondsLeft-10;
       }
+    nextQuestion();
 }   
 
 
@@ -125,8 +140,23 @@ function nextQuestion(){
   if (questionIndex<5) {
     displayQuestion(questionIndex)
   } else {
-  allDone ();
-  //stop timer in allDone
+    if (key.includes(ans)) {
+      console.log(key.includes(ans));
+      judgment.textContent="Right!";
+      var delayInMilliseconds = 3000; //3 second delay
+      setTimeout(function() {
+  //code to continue to be executed after 3 seconds
+      }, delayInMilliseconds);
+      allDone();
+    }
+      else {
+      judgment.textContent="Wrong!";
+      var delayInMilliseconds = 3000; //3 second delay
+      setTimeout(function() {
+  //code to continue to be executed after 3 seconds
+      }, delayInMilliseconds);
+      allDone();
+      }
   }
 }
 secondsLeft=61;
@@ -138,7 +168,7 @@ function setTime() {
     secondsLeft--;
     timer.textContent = "Timer:" + secondsLeft;
 
-    if(secondsLeft === 0) {
+    if((secondsLeft === 0)||(questionIndex>4)) {
       // Stops execution of action at set interval
       clearInterval(timerInterval);
       // Calls function to create and append image
@@ -146,7 +176,16 @@ function setTime() {
     }
   }, 1000);
 }
-
+/*
 function allDone() {
-
+  timer.style.display = 'none';
+  question.style.display = 'none';
+  highScores.style.display = 'none';
+  choice1.style.display = 'none';
+  choice2.style.display = 'none';
+  choice3.style.display = 'none';
+  choice4.style.display = 'none';
+  finished.textContent = "All Done!";
+  score.textContent = "Your final score is " + secondsLeft + ".";
 }
+*/

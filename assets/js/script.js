@@ -19,7 +19,6 @@ var initials = document.querySelector(".initials");
 var submitInitials = document.querySelector(".submitInitials");
 var textBeforeInput = document.querySelector(".textBeforeInput");
 var displayHighscores = document.querySelector(".displayHighscores");
-var highScoreList = document.querySelector("highScoreList");
 var ol = document.querySelector(".highScoreList");
 var clearScores = document.querySelector(".clearScores");
 var refresh = document.querySelector(".refresh");
@@ -155,7 +154,7 @@ function setTime() {
     secondsLeft--;
     console.log(score);
     timer.textContent = "Timer:" + secondsLeft;
-    if((secondsLeft === 0)||(questionIndex>4)) {
+    if((secondsLeft < 0)||(questionIndex>4)) {
       // Stops execution of action at set interval
       clearInterval(timerInterval);
       // Calls function to create and append image
@@ -176,6 +175,9 @@ function allDone() {
   judgment.style.display = 'none';
   score.style.display = 'inline';
   finished.textContent = "All Done!";
+  if (actualScore<0) {
+    actualScore = 0;
+  }
   score.textContent = "Your final score is " + actualScore + ".";
 // Can only log a high score if score is greater than zero 
   if (actualScore>0){
@@ -230,6 +232,7 @@ function showHighScores(){
 function clearHighscores() {
   winners = [];
   localStorage.setItem("winners", JSON.stringify(winners));
+  ol.style.display = 'none';
 }
 
 function goBack() {

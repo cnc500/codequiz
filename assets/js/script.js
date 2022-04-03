@@ -17,9 +17,7 @@ var questionIndex = 0;
 var actualScore = 60;
 var initials = document.querySelector(".initials");
 var submitInitials = document.querySelector(".submitInitials");
-
-var input = document.querySelector(input);
-
+var textBeforeInput = document.querySelector(".textBeforeInput");
 
 
 
@@ -62,6 +60,7 @@ choice1.style.display = 'none';
 choice2.style.display = 'none';
 choice3.style.display = 'none';
 choice4.style.display = 'none';
+textBeforeInput.style.display = 'none';
 // finished.style.display = 'none';
 
 
@@ -222,8 +221,8 @@ function allDone() {
  function logScore() {
   score.style.display = 'none';
   finished.style.display = 'inline';
+  textBeforeInput.style.display = 'inline';
   var currentInitials = initials.value;
-  input.insertAdjacentHTML('beforebegin', 'Enter Initials: ')
 console.log(currentInitials);
 console.log(actualScore);
   winners.push({winner:currentInitials,usersScore:actualScore});

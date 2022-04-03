@@ -232,7 +232,7 @@ if (localStorage.getItem("winners")) {
   localStorage.setItem("winners", JSON.stringify(winners));
 }
 console.log(winners);
-// showHighScores();
+ showHighScores();
 } 
 
 function showHighScores(){
@@ -247,11 +247,12 @@ function showHighScores(){
 //  function createli(name) {
 //    li.textContent = name;
 //    return li;
-/*  for (var i =0; i < winners.length; i++) {
+//  for (var i =0; i < winners.length; i++) {
+  
     var li = document.createElement('li');
-    li.textContent = winners[i].winner + " - " + winners.usersScore[i];
+    li.textContent = winners[0].winner + " - " + winners[0].usersScore;
     ol.appendChild(li);
-  } */
+ // } 
   // var ol = document.getElementById("highScoreList");
   //li.appendChild(document.createTextNode("Four"));
  // ol.appendChild(li);
@@ -261,7 +262,7 @@ function showHighScores(){
 //  winners.join(winners.winner,winners.usersScore);
  // console.log(winners);
 }
-showHighScores(); 
+ //showHighScores(); 
 /*  for (var i =0; i < winners.length; i++) {
      var winnerWithScore = [winners.winner[i],winners.usersScore[i]];
      winnerWithScore.join('  ');

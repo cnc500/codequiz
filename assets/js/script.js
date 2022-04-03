@@ -18,6 +18,8 @@ var actualScore = 60;
 var initials = document.querySelector(".initials");
 var submitInitials = document.querySelector(".submitInitials");
 
+var input = document.querySelector(input);
+
 
 
 
@@ -220,10 +222,11 @@ function allDone() {
  function logScore() {
   score.style.display = 'none';
   finished.style.display = 'inline';
-    var currentInitials = initials.value;
+  var currentInitials = initials.value;
+  input.insertAdjacentHTML('beforebegin', 'Enter Initials: ')
 console.log(currentInitials);
 console.log(actualScore);
   winners.push({winner:currentInitials,usersScore:actualScore});
-   console.log(winners);
+console.log(winners);
 
 } 

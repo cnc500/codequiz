@@ -5,3 +5,29 @@
   display: flex;
   justify-content: space-between;
 }
+
+.answerButton {
+  background-color: blue;
+  color: white;
+}
+
+.blueLetters {
+  background-color: white;
+  color: blue;
+  border: white;
+  font-size: larger;
+}
+
+.startContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.centerLeft{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: left;
+}
+}

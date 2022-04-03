@@ -20,6 +20,10 @@ var submitInitials = document.querySelector(".submitInitials");
 var textBeforeInput = document.querySelector(".textBeforeInput");
 var displayHighscores = document.querySelector(".displayHighscores");
 var highScoreList = document.querySelector("highScoreList");
+var ol = document.querySelector(".highScoreList");
+var clearScores = document.querySelector(".clearScores");
+var refresh = document.querySelector(".refresh");
+var refresh2 = document.querySelector(".refresh2");
 
 
 
@@ -50,7 +54,6 @@ var questions = [
     answers:"A declared function independently executes a particular task."
   }
 ];
-
 startbutton.addEventListener("click", startQuiz); 
 
 timer.style.display = 'none';
@@ -64,8 +67,10 @@ choice3.style.display = 'none';
 choice4.style.display = 'none';
 textBeforeInput.style.display = 'none';
 displayHighscores.style.display = 'none';
+refresh.style.display = 'none';
+refresh2.style.display = 'none';
+clearScores.style.display = 'none';
 // finished.style.display = 'none';
-
 
 function startQuiz (){
   console.log("startQuiz");
@@ -76,7 +81,6 @@ function startQuiz (){
   displayQuestion(0);
   //start timer
   setTime();
-
 }
 
 function displayQuestion (i){
@@ -92,14 +96,8 @@ function displayQuestion (i){
     choice2.textContent=questions[i].choices[1];
     choice3.textContent=questions[i].choices[2];
     choice4.textContent=questions[i].choices[3];
- // } 
 }
-//add event listenerfor answerButton to call functio
-// 
-/*choice1.addEventListener("click",nextQuestion);
-choice2.addEventListener("click",nextQuestion);
-choice3.addEventListener("click",nextQuestion);
-choice4.addEventListener("click",nextQuestion);*/
+
 choice1.addEventListener("click",checkAnswer);
 choice2.addEventListener("click",checkAnswer);
 choice3.addEventListener("click",checkAnswer);
@@ -144,35 +142,9 @@ console.log(key);
   } 
 }   
 
-
-  
-
 function nextQuestion(){
   questionIndex++;
   displayQuestion(questionIndex)
-
- /* if (questionIndex<5) {
-    displayQuestion(questionIndex)
-  } else {
-    var ans = event.target.textContent;
-    if (key.includes(ans)) {
-      console.log(key.includes(ans));
-      judgment.textContent="Right!";
-      var delayInMilliseconds = 3000; //3 second delay
-      setTimeout(function() {
-  //code to continue to be executed after 3 seconds
-      }, delayInMilliseconds);
-      allDone();
-    }
-      else {
-      judgment.textContent="Wrong!";
-      var delayInMilliseconds = 3000; //3 second delay
-      setTimeout(function() {
-  //code to continue to be executed after 3 seconds
-      }, delayInMilliseconds);
-      allDone();
-      }
-  } */
 }
 secondsLeft=61;
 
@@ -183,9 +155,7 @@ function setTime() {
     secondsLeft--;
     console.log(score);
     timer.textContent = "Timer:" + secondsLeft;
-
     if((secondsLeft === 0)||(questionIndex>4)) {
-
       // Stops execution of action at set interval
       clearInterval(timerInterval);
       // Calls function to create and append image
@@ -211,8 +181,12 @@ function allDone() {
   if (actualScore>0){
     initials.style.display = 'inline';
     submitInitials.style.display = "inline";
+    textBeforeInput.style.display = 'inline';
     submitInitials.addEventListener("click",logScore);
-  } 
+  } else {
+    refresh2.style.display = 'block';
+    refresh2.addEventListener("click",goBack);
+  }
 }
  function logScore() {
   score.style.display = 'none';
@@ -241,37 +215,23 @@ function showHighScores(){
   initials.style.display = "none";
   submitInitials.style.display = "none";
   displayHighscores.style.display = 'block';
+  refresh.style.display = 'block';
+  clearScores.style.display = 'block';
   winners.sort((a, b) => (a.usersScore < b.usersScore) ? 1 : -1);
   console.log(winners); 
-//  console.log(winners[0].winner);
-//  function createli(name) {
-//    li.textContent = name;
-//    return li;
-//  for (var i =0; i < winners.length; i++) {
-  
+  for (var i =0; i < winners.length; i++) { 
     var li = document.createElement('li');
-    li.textContent = winners[0].winner + " - " + winners[0].usersScore;
+    li.textContent = winners[i].winner + " - " + winners[i].usersScore;
     ol.appendChild(li);
- // } 
-  // var ol = document.getElementById("highScoreList");
-  //li.appendChild(document.createTextNode("Four"));
- // ol.appendChild(li);
-  //append.child ol
-  // ul [winners[i].winner," - ",winners[i].usersScore]
-  // append 
-//  winners.join(winners.winner,winners.usersScore);
- // console.log(winners);
+  } 
+  refresh.addEventListener("click",goBack);
+  clearScores.addEventListener("click",clearHighscores)
 }
- //showHighScores(); 
-/*  for (var i =0; i < winners.length; i++) {
-     var winnerWithScore = [winners.winner[i],winners.usersScore[i]];
-     winnerWithScore.join('  ');
-     console.log(winnerWithScore);
-  }
-console.log(winners); */
+function clearHighscores() {
+  winners = [];
+  localStorage.setItem("winners", JSON.stringify(winners));
+}
 
-//  var html = "";
-// for (var i =0; i < winners.length; i++) {
-//    html += "<li>" + winners[i]+ "</li>";
-//}
-// document.getElementById(".highScoreList").innerHTML = html;​
+function goBack() {
+  location.reload();
+}

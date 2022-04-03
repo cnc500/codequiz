@@ -9,20 +9,20 @@
 </head>
 <body>
   <div class="startContainer">
-    <h1>Coding Quiz Challenge</h1>
-    <p>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds. 
+    <h1 class="move">Coding Quiz Challenge</h1>
+    <p class="move">Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds. 
     </p>
-    <button class="startbtn">Start Quiz</button>  
+    <button class="startbtn answerButton move">Start Quiz</button>  
   </div>
   <div class="questionContainer">
-    <div class="top"><button class="highScores">View High Scores</button>
+    <div class="top"><button class="highScores blueLetters">View High Scores</button>
     <h3 class="timer"></h3>
     </div>
-      <h1 class=finished></h1>
+      <h1 class="finished"></h1>
       <h3 class="score"></h3>
     </div>
-   <h2 class="question"></h2>
-    <div class="answerList">
+   <h2 class="question centerLeft"></h2>
+    <div class="answerList centerLeft">
       <button class="choice1 answerButton"></button>
       <button class="choice2 answerButton"></button>
       <button class="choice3 answerButton"></button>
@@ -31,9 +31,10 @@
     </div>
  <!--   <div> -->
  <!--     <form action=""> -->
-      <label class=textBeforeInput for="who">Enter Initials:</label>
+      <label class="textBeforeInput" for="who">Enter Initials:</label>
       <input type="text" for="who" class="initials" name="enterInitials"> 
-      <button type="submit" class="submitInitials answerButton" id="who">SUBMIT</button> 
+      <button type="submit" class="submitInitials answerButton" id="who">SUBMIT</button>
+      <button class="refresh2 answerButton">Go Back</button> 
  <!--     </form>-->
  <!--   </div> -->
     
@@ -44,6 +45,8 @@
       <ol class="highScoreList">
 
       </ol>
+      <button class="refresh answerButton">Go Back</button>
+      <button class="clearScores answerButton">Clear Highscores</button>
     </div>
   <script src="./assets/js/script.js"></script>
 </body>

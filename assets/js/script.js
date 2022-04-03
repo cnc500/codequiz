@@ -47,7 +47,7 @@ var questions = [
     choices:["A method is a prebuilt function.","An object is a collection of properties.","A declared function independently executes a particular task.","Georgia Tech is a premiere, technical, educational institution!"],
     answers:"A declared function independently executes a particular task."
   }
-]
+];
 
 startbutton.addEventListener("click", startQuiz); 
 
@@ -190,13 +190,7 @@ function setTime() {
     }
   }, 1000);
 }
-var winners = [
-  {
-    winner: "XX",
-    usersScore: 1
-  }
-
-]
+var winners = [];
 
 function allDone() {
   timer.style.display = 'none';
@@ -216,7 +210,6 @@ function allDone() {
     submitInitials.style.display = "inline";
     submitInitials.addEventListener("click",logScore);
   } 
-//    var initials = document.querySelector(".initials");
 }
  function logScore() {
   score.style.display = 'none';
@@ -224,8 +217,11 @@ function allDone() {
   textBeforeInput.style.display = 'inline';
   var currentInitials = initials.value;
 console.log(currentInitials);
-console.log(actualScore);
+console.log 
+  winners = JSON.parse(localStorage.getItem("winners"));
+//  winners = winnersSaved;
   winners.push({winner:currentInitials,usersScore:actualScore});
-console.log(winners);
+  localStorage.setItem("winners", JSON.stringify(winners));
 
+console.log(winners);
 } 

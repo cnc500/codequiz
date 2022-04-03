@@ -232,7 +232,7 @@ if (localStorage.getItem("winners")) {
   localStorage.setItem("winners", JSON.stringify(winners));
 }
 console.log(winners);
-showHighScores();
+// showHighScores();
 } 
 
 function showHighScores(){
@@ -242,16 +242,16 @@ function showHighScores(){
   submitInitials.style.display = "none";
   displayHighscores.style.display = 'block';
   winners.sort((a, b) => (a.usersScore < b.usersScore) ? 1 : -1);
-  console.log(winners);
-  console.log(winners[0].winner);
+  console.log(winners); 
+//  console.log(winners[0].winner);
 //  function createli(name) {
 //    li.textContent = name;
 //    return li;
-  for (var i =0; i < winners.length; i++) {
+/*  for (var i =0; i < winners.length; i++) {
     var li = document.createElement('li');
     li.textContent = winners[i].winner + " - " + winners.usersScore[i];
     ol.appendChild(li);
-  }
+  } */
   // var ol = document.getElementById("highScoreList");
   //li.appendChild(document.createTextNode("Four"));
  // ol.appendChild(li);
@@ -259,8 +259,9 @@ function showHighScores(){
   // ul [winners[i].winner," - ",winners[i].usersScore]
   // append 
 //  winners.join(winners.winner,winners.usersScore);
-  console.log(winners);
+ // console.log(winners);
 }
+showHighScores(); 
 /*  for (var i =0; i < winners.length; i++) {
      var winnerWithScore = [winners.winner[i],winners.usersScore[i]];
      winnerWithScore.join('  ');

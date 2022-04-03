@@ -18,6 +18,7 @@ var actualScore = 60;
 var initials = document.querySelector(".initials");
 var submitInitials = document.querySelector(".submitInitials");
 var textBeforeInput = document.querySelector(".textBeforeInput");
+var displayHighscores = document.querySelector(".displayHighscores");
 
 
 
@@ -61,6 +62,7 @@ choice2.style.display = 'none';
 choice3.style.display = 'none';
 choice4.style.display = 'none';
 textBeforeInput.style.display = 'none';
+displayHighscores.style.display = 'none';
 // finished.style.display = 'none';
 
 
@@ -218,10 +220,25 @@ function allDone() {
   var currentInitials = initials.value;
 console.log(currentInitials);
 console.log 
+if (localStorage.getItem("winners")) {
   winners = JSON.parse(localStorage.getItem("winners"));
-//  winners = winnersSaved;
-  winners.push({winner:currentInitials,usersScore:actualScore});
+  winners.push({winner: currentInitials, usersScore: actualScore});
   localStorage.setItem("winners", JSON.stringify(winners));
-
+} else {
+  localStorage.setItem("winners", '[]')
+  winners = JSON.parse(localStorage.getItem("winners"));
+  winners.push({winner: currentInitials, usersScore: actualScore});
+  localStorage.setItem("winners", JSON.stringify(winners));
+}
 console.log(winners);
+showHighScores();
 } 
+
+function showHighScores(){
+  finished.style.display = "none";
+  textBeforeInput.style.display = "none";
+  initials.style.display = "none";
+  submitInitials.style.display = "none";
+  displayHighscores.style.display = 'block';
+
+}

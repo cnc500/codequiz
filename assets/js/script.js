@@ -19,6 +19,7 @@ var initials = document.querySelector(".initials");
 var submitInitials = document.querySelector(".submitInitials");
 var textBeforeInput = document.querySelector(".textBeforeInput");
 var displayHighscores = document.querySelector(".displayHighscores");
+var highScoreList = document.querySelector("highScoreList");
 
 
 
@@ -240,5 +241,13 @@ function showHighScores(){
   initials.style.display = "none";
   submitInitials.style.display = "none";
   displayHighscores.style.display = 'block';
+  winners.sort((a, b) => (a.usersScore < b.usersScore) ? 1 : -1);
+  console.log(winners);
+  winners.join(winners.winner,winners.usersScore);
+  console.log(winners);
 
+//  var html = "";
+// for (var i =0; i < winners.length; i++) {
+//    html += "<li>" + winners[i]+ "</li>";
 }
+// document.getElementById(".highScoreList").innerHTML = html;​

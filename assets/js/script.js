@@ -25,7 +25,6 @@ var refresh = document.querySelector(".refresh");
 var refresh2 = document.querySelector(".refresh2");
 
 
-
 var questions = [
   {
     question:"The acronym JSON stands for",
@@ -53,7 +52,8 @@ var questions = [
     answers:"A declared function independently executes a particular task."
   }
 ];
-startbutton.addEventListener("click", startQuiz); 
+startbutton.addEventListener("click", startQuiz);
+
 
 timer.style.display = 'none';
 score.style.display = 'none';
@@ -95,12 +95,17 @@ function displayQuestion (i){
     choice2.textContent=questions[i].choices[1];
     choice3.textContent=questions[i].choices[2];
     choice4.textContent=questions[i].choices[3];
+  //  displayHighscores.style.display = 'none';
+ //   highScores.addEventListener("click",showHighScores);
+
+// 
 }
 
 choice1.addEventListener("click",checkAnswer);
 choice2.addEventListener("click",checkAnswer);
 choice3.addEventListener("click",checkAnswer);
-choice4.addEventListener("click",checkAnswer);
+choice4.addEventListener("click",checkAnswer);   
+
 
 var key = [questions[0].answers,
           questions[1].answers,
@@ -212,6 +217,19 @@ console.log(winners);
 } 
 
 function showHighScores(){
+//  secondsLeft = 0;
+//  clearInterval(timerInterval);
+
+  timer.style.display = 'none';
+  question.style.display = 'none';
+  choice1.style.display = 'none';
+  choice2.style.display = 'none';
+  choice3.style.display = 'none';
+  choice4.style.display = 'none';
+  judgment.style.display = 'none';
+  score.style.display = 'none';
+
+  //questionIndex=5;
   finished.style.display = "none";
   textBeforeInput.style.display = "none";
   initials.style.display = "none";

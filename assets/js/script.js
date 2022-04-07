@@ -132,6 +132,11 @@ console.log(key);
       var delayInMilliseconds = 2000; //2 second delay
       setTimeout(function() {
         judgment.style.display = 'none';
+//        choice1.addEventListener("click",turnOnAnswer);
+//       choice2.addEventListener("click",turnOnAnswer);
+//       choice3.addEventListener("click",turnOnAnswer);
+//       choice4.addEventListener("click",turnOnAnswer); 
+
 
       }, delayInMilliseconds);
       }
@@ -150,6 +155,10 @@ console.log(key);
     questionIndex++;
   } 
 }   
+
+//turnOnAnswer() {
+//  judgment.style.display = 'block';
+// }
 
 function nextQuestion(){
   questionIndex++;

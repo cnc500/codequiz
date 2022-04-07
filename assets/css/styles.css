@@ -30,4 +30,14 @@
   align-items: center;
   justify-content: left;
 }
+
+.finished, .score, .submission {
+  text-indent: 42%;
+}
+
+.finished {
+  margin-top: 200px;
+}
+.score {
+  margin-top: 20px;
 }

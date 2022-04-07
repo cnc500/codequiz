@@ -24,7 +24,6 @@ var clearScores = document.querySelector(".clearScores");
 var refresh = document.querySelector(".refresh");
 var refresh2 = document.querySelector(".refresh2");
 
-
 var questions = [
   {
     question:"The acronym JSON stands for",
@@ -104,7 +103,13 @@ function displayQuestion (i){
 choice1.addEventListener("click",checkAnswer);
 choice2.addEventListener("click",checkAnswer);
 choice3.addEventListener("click",checkAnswer);
-choice4.addEventListener("click",checkAnswer);   
+choice4.addEventListener("click",checkAnswer); 
+highScores.addEventListener("click", function(){
+  startcontainer.style.display = "none";
+  showHighScores();
+  retrieveScores();
+//  logScore();
+})  
 
 
 var key = [questions[0].answers,
@@ -178,7 +183,7 @@ function allDone() {
   choice3.style.display = 'none';
   choice4.style.display = 'none';
   judgment.style.display = 'none';
-  score.style.display = 'inline';
+  score.style.display = 'block';
   finished.textContent = "All Done!";
   if (actualScore<0) {
     actualScore = 0;
@@ -216,6 +221,20 @@ console.log(winners);
  showHighScores();
 } 
 
+function retrieveScores() {
+  score.style.display = 'none';
+if (localStorage.getItem("winners")) {
+  winners = JSON.parse(localStorage.getItem("winners"));
+} else {
+  localStorage.setItem("winners", '[]')
+}
+console.log(winners);
+ showHighScores();
+} 
+
+
+
+
 function showHighScores(){
 //  secondsLeft = 0;
 //  clearInterval(timerInterval);
@@ -234,6 +253,7 @@ function showHighScores(){
   textBeforeInput.style.display = "none";
   initials.style.display = "none";
   submitInitials.style.display = "none";
+  highScores.style.display = "none";
   displayHighscores.style.display = 'block';
   refresh.style.display = 'block';
   clearScores.style.display = 'block';

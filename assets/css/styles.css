@@ -31,7 +31,7 @@
   justify-content: left;
 }
 
-.finished, .score, .submission {
+.finished, .score, .submission, .refresh2 {
   text-indent: 42%;
 }
 
@@ -41,3 +41,4 @@
 .score {
   margin-top: 20px;
 }
+

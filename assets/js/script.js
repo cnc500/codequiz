@@ -15,6 +15,7 @@ var judgment = document.querySelector(".judgment");
 var finished = document.querySelector(".finished");
 var questionIndex = 0;
 var actualScore = 60;
+var stopTimer = 0;
 var initials = document.querySelector(".initials");
 var submitInitials = document.querySelector(".submitInitials");
 var textBeforeInput = document.querySelector(".textBeforeInput");
@@ -104,8 +105,10 @@ choice1.addEventListener("click",checkAnswer);
 choice2.addEventListener("click",checkAnswer);
 choice3.addEventListener("click",checkAnswer);
 choice4.addEventListener("click",checkAnswer); 
+
 highScores.addEventListener("click", function(){
   startcontainer.style.display = "none";
+  stopTimer = 1;
   showHighScores();
   retrieveScores();
 //  logScore();
@@ -129,7 +132,7 @@ console.log(key);
 //      console.log(key.includes(ans));
       judgment.textContent="Right!";
       judgment.style.display = 'block';
-      var delayInMilliseconds = 2000; //2 second delay
+      var delayInMilliseconds = 1200; //1.2 second delay
       setTimeout(function() {
         judgment.style.display = 'none';
 //        choice1.addEventListener("click",turnOnAnswer);
@@ -143,15 +146,23 @@ console.log(key);
       else {
       judgment.textContent="Wrong!";
       judgment.style.display = 'block';
-      var delayInMilliseconds = 2000; //2 second delay
+      var delayInMilliseconds = 1200; //1.2 second delay
       setTimeout(function() {
         judgment.style.display = 'none';
       }, delayInMilliseconds);
       secondsLeft=secondsLeft-10;
       }
   if (questionIndex<4){
+    var delayInMilliseconds = 2000; 
+    // adds 2 second delay between questions which avoids conflict
+    // in case user selects answer to next question before right or wrong
+    // display is finished
+    setTimeout(function() {
     nextQuestion();
+    }, delayInMilliseconds);
   } else {
+    // Increments questionIndex to above 4 so timer knows to stop 
+    // and to call allDone function
     questionIndex++;
   } 
 }   
@@ -173,11 +184,13 @@ function setTime() {
     secondsLeft--;
     console.log(score);
     timer.textContent = "Timer:" + secondsLeft;
-    if((secondsLeft < 0)||(questionIndex>4)) {
+    if ((secondsLeft < 0)||(questionIndex>4)) {
       // Stops execution of action at set interval
       clearInterval(timerInterval);
-      // Calls function to create and append image
+      // If 
+      if (stopTimer !== 1) {
       allDone();
+      }
     }
   }, 1000);
 }
@@ -230,6 +243,10 @@ console.log(winners);
  showHighScores();
 } 
 
+// This is a shortened verion of logScore for when the user wants to 
+// use the view high scores button without completing the quiz. It simply
+// sees if there is high scores stored in local storage and retrieves 
+// them while converting them to readable content if they are there.  
 function retrieveScores() {
   score.style.display = 'none';
 if (localStorage.getItem("winners")) {

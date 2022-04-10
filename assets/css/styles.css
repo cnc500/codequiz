@@ -31,8 +31,12 @@
   justify-content: left;
 }
 
-.finished, .score, .submission, .refresh2 {
+.finished, .score, .submission {
   text-indent: 42%;
+}
+
+.refresh2 {
+  margin-left:42%;
 }
 
 .finished {

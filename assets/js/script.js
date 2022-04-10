@@ -1,10 +1,8 @@
 var startcontainer = document.querySelector(".startContainer");
-var startbutton = document.querySelector(".startbtn");
-var questionContainer = document.querySelector(".questionContainer");
+var startButton = document.querySelector(".startbtn");
 var secondsLeft = document.querySelector(".seconds");
 var score = document.querySelector(".score");
 var question = document.querySelector(".question");
-var answerList = document.querySelector(".answerList");
 var highScores = document.querySelector(".highScores");
 var choice1 = document.querySelector(".choice1");
 var choice2 = document.querySelector(".choice2");
@@ -13,9 +11,6 @@ var choice4 = document.querySelector(".choice4");
 var timer = document.querySelector(".timer");
 var judgment = document.querySelector(".judgment");
 var finished = document.querySelector(".finished");
-var questionIndex = 0;
-var actualScore = 60;
-var stopTimer = 0;
 var initials = document.querySelector(".initials");
 var submitInitials = document.querySelector(".submitInitials");
 var textBeforeInput = document.querySelector(".textBeforeInput");
@@ -24,7 +19,11 @@ var ol = document.querySelector(".highScoreList");
 var clearScores = document.querySelector(".clearScores");
 var refresh = document.querySelector(".refresh");
 var refresh2 = document.querySelector(".refresh2");
+var questionIndex = 0;
+var actualScore = 60;
+var stopTimer = 0;
 
+var winners = [];
 var questions = [
   {
     question:"The acronym JSON stands for",
@@ -52,7 +51,7 @@ var questions = [
     answers:"A declared function independently executes a particular task."
   }
 ];
-startbutton.addEventListener("click", startQuiz);
+startButton.addEventListener("click", startQuiz);
 
 
 timer.style.display = 'none';
@@ -69,38 +68,31 @@ displayHighscores.style.display = 'none';
 refresh.style.display = 'none';
 refresh2.style.display = 'none';
 clearScores.style.display = 'none';
-// finished.style.display = 'none';
 
 function startQuiz (){
-  console.log("startQuiz");
-//  question.style.display = 'block';
   startcontainer.style.display = 'none';
   timer.style.display = 'block';
   highScores.style.display = 'block';
   displayQuestion(0);
-  //start timer
+  // calling setTime starts timer
   setTime();
 }
 
 function displayQuestion (i){
-  //for (var i=0;i<questions.length;i++){
-    console.log(questions[i].question);
-    console.log(questions[i].choices);
-    question.textContent=questions[i].question;
-    choice1.style.display = 'block';
-    choice2.style.display = 'block';
-    choice3.style.display = 'block';
-    choice4.style.display = 'block';
-    choice1.textContent=questions[i].choices[0];
-    choice2.textContent=questions[i].choices[1];
-    choice3.textContent=questions[i].choices[2];
-    choice4.textContent=questions[i].choices[3];
-  //  displayHighscores.style.display = 'none';
- //   highScores.addEventListener("click",showHighScores);
-
-// 
+    if (stopTimer !== 1) {
+      question.textContent=questions[i].question;
+      choice1.style.display = 'block';
+      choice2.style.display = 'block';
+      choice3.style.display = 'block';
+      choice4.style.display = 'block';
+      choice1.textContent=questions[i].choices[0];
+      choice2.textContent=questions[i].choices[1];
+      choice3.textContent=questions[i].choices[2];
+      choice4.textContent=questions[i].choices[3];
+    }
 }
 
+// waiting for answer selection so it can be checked
 choice1.addEventListener("click",checkAnswer);
 choice2.addEventListener("click",checkAnswer);
 choice3.addEventListener("click",checkAnswer);
@@ -108,73 +100,69 @@ choice4.addEventListener("click",checkAnswer);
 
 highScores.addEventListener("click", function(){
   startcontainer.style.display = "none";
+  // stopTimer variable stops program from running except for  
+  // below two functions called to prevent unwanted displays 
   stopTimer = 1;
   showHighScores();
   retrieveScores();
-//  logScore();
+  choice1.style.display = 'none';
+  choice2.style.display = 'none';
+  choice3.style.display = 'none';
+  choice4.style.display = 'none';
 })  
 
-
+// key is the answer key
 var key = [questions[0].answers,
           questions[1].answers,
           questions[2].answers,
           questions[3].answers,
           questions[4].answers];
-console.log(key);
 
- function checkAnswer(event){
-    event.preventDefault();
-  //  event.target;
+function checkAnswer(event){
+  event.preventDefault();
+  if (stopTimer !== 1) {
     var ans = event.target.textContent;
-    console.log(event.target.textContent);
- //   if (key.includes(ans)) {
-  if (questions[questionIndex].answers === ans) {
-//      console.log(key.includes(ans));
-      judgment.textContent="Right!";
-      judgment.style.display = 'block';
-      var delayInMilliseconds = 1200; //1.2 second delay
-      setTimeout(function() {
-        judgment.style.display = 'none';
-//        choice1.addEventListener("click",turnOnAnswer);
-//       choice2.addEventListener("click",turnOnAnswer);
-//       choice3.addEventListener("click",turnOnAnswer);
-//       choice4.addEventListener("click",turnOnAnswer); 
-
-
-      }, delayInMilliseconds);
-      }
-      else {
-      judgment.textContent="Wrong!";
-      judgment.style.display = 'block';
-      var delayInMilliseconds = 1200; //1.2 second delay
-      setTimeout(function() {
-        judgment.style.display = 'none';
-      }, delayInMilliseconds);
-      secondsLeft=secondsLeft-10;
-      }
-  if (questionIndex<4){
-    var delayInMilliseconds = 2000; 
-    // adds 2 second delay between questions which avoids conflict
-    // in case user selects answer to next question before right or wrong
-    // display is finished
-    setTimeout(function() {
-    nextQuestion();
-    }, delayInMilliseconds);
-  } else {
+    if (questions[questionIndex].answers === ans) {
+        judgment.textContent="Right!";
+        judgment.style.display = 'block';
+        // 1.2 second delay allows Right! to disappear
+        var delayInMilliseconds = 1200;
+        setTimeout(function() {
+          judgment.style.display = 'none';
+        }, delayInMilliseconds);
+    } else {
+        judgment.textContent="Wrong!";
+        judgment.style.display = 'block';
+        // 1.2 second delay allows Wrong! to disappear
+        var delayInMilliseconds = 1200; 
+        setTimeout(function() {
+          judgment.style.display = 'none';
+        }, delayInMilliseconds);
+        // 10 second penalty imposed for incorrect answer
+        secondsLeft=secondsLeft-10;
+    }
+    if (questionIndex<4) {
+        var delayInMilliseconds = 2000; 
+        // adds 2 second delay between questions which avoids conflict
+        // in case user selects answer to next question before right or wrong
+        // display is finished
+        setTimeout(function() {
+        nextQuestion();
+        }, delayInMilliseconds);
+    } else {
     // Increments questionIndex to above 4 so timer knows to stop 
     // and to call allDone function
-    questionIndex++;
-  } 
+      questionIndex++;
+    } 
+  }
 }   
-
-//turnOnAnswer() {
-//  judgment.style.display = 'block';
-// }
 
 function nextQuestion(){
   questionIndex++;
   displayQuestion(questionIndex)
 }
+
+// extra second provded so that it looks like it starts at 60 seconds
 secondsLeft=61;
 
 function setTime() {
@@ -182,7 +170,6 @@ function setTime() {
   var timerInterval = setInterval(function() {
     actualScore = secondsLeft;
     secondsLeft--;
-    console.log(score);
     timer.textContent = "Timer:" + secondsLeft;
     if ((secondsLeft < 0)||(questionIndex>4)) {
       // Stops execution of action at set interval
@@ -194,7 +181,6 @@ function setTime() {
     }
   }, 1000);
 }
-var winners = [];
 
 function allDone() {
   timer.style.display = 'none';
@@ -207,40 +193,46 @@ function allDone() {
   judgment.style.display = 'none';
   score.style.display = 'block';
   finished.textContent = "All Done!";
+  // In cases when the timer goes below zero because of a 10 
+  // point deduction with less than 10 seconds left on timer,
+  // I set the score to zero instead of having a negative score
   if (actualScore<0) {
     actualScore = 0;
   }
   score.textContent = "Your final score is " + actualScore + ".";
-// Can only log a high score if score is greater than zero 
+  // Can only log a high score if score is greater than zero 
   if (actualScore>0){
     initials.style.display = 'inline';
     submitInitials.style.display = "inline";
     textBeforeInput.style.display = 'inline';
     submitInitials.addEventListener("click",logScore);
   } else {
-    refresh2.style.display = 'block';
+    refresh2.style.display = 'inline';
     refresh2.addEventListener("click",goBack);
   }
 }
- function logScore() {
+
+function logScore() {
   score.style.display = 'none';
   finished.style.display = 'inline';
   textBeforeInput.style.display = 'inline';
   var currentInitials = initials.value;
-console.log(currentInitials);
-console.log 
-if (localStorage.getItem("winners")) {
-  winners = JSON.parse(localStorage.getItem("winners"));
-  winners.push({winner: currentInitials, usersScore: actualScore});
-  localStorage.setItem("winners", JSON.stringify(winners));
-} else {
-  localStorage.setItem("winners", '[]')
-  winners = JSON.parse(localStorage.getItem("winners"));
-  winners.push({winner: currentInitials, usersScore: actualScore});
-  localStorage.setItem("winners", JSON.stringify(winners));
-}
-console.log(winners);
- showHighScores();
+  // if aleady winners in storage, adds additional winner into 
+  // readable array from storage and then adds new winner to
+  // array and then stores it 
+  if (localStorage.getItem("winners")) {
+    winners = JSON.parse(localStorage.getItem("winners"));
+    winners.push({winner: currentInitials, usersScore: actualScore});
+    localStorage.setItem("winners", JSON.stringify(winners));
+  } else {
+    // adds empty array into storage, retrieves it, adds new 
+    // winner to it, and then stores it in local storage 
+    localStorage.setItem("winners", '[]')
+    winners = JSON.parse(localStorage.getItem("winners"));
+    winners.push({winner: currentInitials, usersScore: actualScore});
+    localStorage.setItem("winners", JSON.stringify(winners));
+  }
+  showHighScores();
 } 
 
 // This is a shortened verion of logScore for when the user wants to 
@@ -249,22 +241,15 @@ console.log(winners);
 // them while converting them to readable content if they are there.  
 function retrieveScores() {
   score.style.display = 'none';
-if (localStorage.getItem("winners")) {
-  winners = JSON.parse(localStorage.getItem("winners"));
-} else {
-  localStorage.setItem("winners", '[]')
-}
-console.log(winners);
- showHighScores();
+  if (localStorage.getItem("winners")) {
+    winners = JSON.parse(localStorage.getItem("winners"));
+  } else {
+    localStorage.setItem("winners", '[]')
+  }
+  showHighScores();
 } 
 
-
-
-
 function showHighScores(){
-//  secondsLeft = 0;
-//  clearInterval(timerInterval);
-
   timer.style.display = 'none';
   question.style.display = 'none';
   choice1.style.display = 'none';
@@ -273,8 +258,6 @@ function showHighScores(){
   choice4.style.display = 'none';
   judgment.style.display = 'none';
   score.style.display = 'none';
-
-  //questionIndex=5;
   finished.style.display = "none";
   textBeforeInput.style.display = "none";
   initials.style.display = "none";
@@ -283,8 +266,10 @@ function showHighScores(){
   displayHighscores.style.display = 'block';
   refresh.style.display = 'block';
   clearScores.style.display = 'block';
+  // displays scores (3 lines above) and sorts (below) the by high score
   winners.sort((a, b) => (a.usersScore < b.usersScore) ? 1 : -1);
-  console.log(winners); 
+  // creates a list of winners and there high scores that are 
+  // already sorted
   for (var i =0; i < winners.length; i++) { 
     var li = document.createElement('li');
     li.textContent = winners[i].winner + " - " + winners[i].usersScore;
@@ -293,12 +278,15 @@ function showHighScores(){
   refresh.addEventListener("click",goBack);
   clearScores.addEventListener("click",clearHighscores)
 }
+
 function clearHighscores() {
+  // empties the array winners where high scores are stored
   winners = [];
   localStorage.setItem("winners", JSON.stringify(winners));
   ol.style.display = 'none';
 }
 
+// goBack function refreshes page
 function goBack() {
   location.reload();
 }
